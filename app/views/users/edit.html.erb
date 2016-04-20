@@ -1,0 +1,23 @@
+<form action='/users/<%= session[:id] %>' method='post'>
+  <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+  <input type='hidden' name='_method' value='patch'> 
+  <input type='hidden' name='password' value='<%= @user.password %>'>
+  <p>
+    <label>Name</label>
+    <input type='text' name='name' value='<%= @user.name %>'>
+  </p>
+  <p>
+    <label>Email</label>
+    <input type='text' name='email' value='<%= @user.email %>'>
+  </p>
+  
+  <input type='submit' value='Update Profile'>
+</form>
+<form action="/users/<%= session[:id] %>" method="post">
+    <input type='hidden' name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type='hidden' name='_method' value='delete'>
+    <button type='submit'>Delete Account</button>
+    </form>
+
+<a href="/users/<%= @user.id %>">Back</a>
+

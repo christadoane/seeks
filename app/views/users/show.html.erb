@@ -1,0 +1,80 @@
+
+<div class="container">
+	<div class="row">
+		<h1>Add a secret</h1>
+		<form action='/secrets' method='post'>
+		<div class="form-group">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input type='hidden' name='user_id' value='<%= session[:id] %>'>
+			<label>Secret:</label>
+			<input type='text' name='content'>
+	
+			<input type='submit' value='Create Secret'>
+		</div>
+		</form>
+	</div>
+	<a href="/secrets">Check out Secrets</a>
+	<div class="row">
+		<div class="col-md-6">
+			<h1>My Secrets</h1>
+			<table class="table table-striped">
+				<tr>
+					<td>Content</td>
+					<td>Like Count</td>
+					<td>Actions</td>
+		
+				</tr>
+				
+				<% @secrets.each do |secret| %>
+				<tr>
+				<td>
+					<%= secret.content %>
+				</td>
+				<td><%= secret.likes.count %></td>
+				<td>
+				
+					<form action="/secret/" method="post">
+					<input type='hidden' name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type='hidden' name='id' value='<%= secret.id %>'>
+					<input type='hidden' name='_method' value='delete'>
+					<button type='submit'>Delete Secret</button>
+					</form>
+				
+				</td>
+				</tr>
+				<% end %>
+				
+			</table>
+			
+		</div>
+		<div class="col-md-6">
+			<h1>Secrets I Liked</h1>
+			<table class="table table-striped">
+				<tr>
+					<td>Content</td>
+					<td>Count</td>
+					
+		
+				</tr>
+				
+				<% @liked_secrets = User.find(2).secrets_liked do |secret|) %>
+				<tr>
+				<td>
+					<%= secret.content %>
+				</td>
+				<td></td>
+				
+				</tr>
+				<% end %>
+				
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<h1>Profile Information</h1>
+		<p>Name: <%= current_user.name %></p>
+		<p>Email: <%= current_user.email %></p>
+		<a href="/users/<%= session[:id]%>/edit">Edit Profile</a>
+	</div>
+</div>
+
