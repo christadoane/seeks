@@ -35,9 +35,10 @@ Rails.application.routes.draw do
   # user clicks Delete Account calls users/destroy method redirect to /users/new
   delete 'users/:id' => "users#destroy"
   post "secrets" => "secrets#create"
-  delete 'secrets/:id' => "secrets#destroy"
+  delete "secrets/:id" => "secrets#destroy"
 
   post "likes" => "likes#create"
+  delete 'likes' => 'likes#destroy'
 
 #not needed
   #get 'sessions' => 'sessions#index'

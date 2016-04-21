@@ -1,5 +1,19 @@
 
-<div class="container">
+
+<div style="background-color:lightgrey;" class="row"></div>
+<div style="background-color:lightgrey;" class="row">
+
+		<div class="col-md-6"></div>
+		
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-2">
+		<p>Name: <%= current_user.name %></p><p>Email: <%= current_user.email %></p>
+		</div>
+		<div class="col-md-2">
+		<button type="button" class="btn btn-default"><a href="/users/<%= session[:id]%>/edit">Edit Profile</a></button>
+		</div>
+	</div>
 	<div class="row">
 		<h1>Add a secret</h1>
 		<form action='/secrets' method='post'>
@@ -13,11 +27,11 @@
 		</div>
 		</form>
 	</div>
-	<a href="/secrets">Check out Secrets</a>
+	<button button type="button" class="btn btn-default"><a href="/secrets">Check out all the Secrets</a></button>
 	<div class="row">
 		<div class="col-md-6">
 			<h1>My Secrets</h1>
-			<table class="table table-striped">
+			<table style="border:solid;" class="table table-striped">
 				<tr>
 					<td>Content</td>
 					<td>Like Count</td>
@@ -33,9 +47,8 @@
 				<td><%= secret.likes.count %></td>
 				<td>
 				
-					<form action="/secret/" method="post">
+					<form action="/secrets/<%= secret.id %>" method="post">
 					<input type='hidden' name="authenticity_token" value="<%= form_authenticity_token %>">
-					<input type='hidden' name='id' value='<%= secret.id %>'>
 					<input type='hidden' name='_method' value='delete'>
 					<button type='submit'>Delete Secret</button>
 					</form>
@@ -49,32 +62,29 @@
 		</div>
 		<div class="col-md-6">
 			<h1>Secrets I Liked</h1>
-			<table class="table table-striped">
+			<table style="border:solid;" class="table table-striped">
 				<tr>
 					<td>Content</td>
-					<td>Count</td>
+					<td>Like Count</td>
 					
 		
 				</tr>
+				<% @allsecrets.each do |all| %>
+				<% if all.users_liked.include?(current_user) == true %>
 				
-				<% @liked_secrets = User.find(2).secrets_liked do |secret|) %>
 				<tr>
 				<td>
-					<%= secret.content %>
+					<%= all.content %>
 				</td>
-				<td></td>
+				<td><%= all.likes.count %></td>
 				
 				</tr>
+				<% end %>
 				<% end %>
 				
 			</table>
 		</div>
 	</div>
-	<div class="row">
-		<h1>Profile Information</h1>
-		<p>Name: <%= current_user.name %></p>
-		<p>Email: <%= current_user.email %></p>
-		<a href="/users/<%= session[:id]%>/edit">Edit Profile</a>
-	</div>
-</div>
+	
+
 

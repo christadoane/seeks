@@ -16,6 +16,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(session[:id])
   	@secrets = Secret.where(user_id: session[:id])
+  	@allsecrets = Secret.all
   end
   def edit
   	@user = User.find(session[:id])

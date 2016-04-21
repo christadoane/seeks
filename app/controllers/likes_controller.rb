@@ -4,11 +4,11 @@ class LikesController < ApplicationController
   end
 
   def create
-  	@check = like.where(user: params[:user_id], secret: params[:secret_id])
+  	@check = Like.where(user_id: params[:user_id], secret_id: params[:secret_id])
     if @check.count > 0
       flash[:errors] = ["You've already liked this secret"]
     else
-      @like = Like.new(secret_id: params[:secret_id], user_id: params[:user_id])
+      @like = Like.new(user_id: params[:user_id], secret_id: params[:secret_id])
       if @like.save
         redirect_to "/secrets"
       else
@@ -17,5 +17,10 @@ class LikesController < ApplicationController
   	    redirect_to "/secrets"
       end
     end
+  end
+  def destroy
+    Like.where(user: current_user, secret: params[:secret_id]).first.destroy
+    
+    redirect_to '/secrets'
   end
 end

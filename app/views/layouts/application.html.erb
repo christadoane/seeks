@@ -13,6 +13,8 @@
     <p><%= e %></p>
   <% end %>
 <% end %>
+
+<%= yield %>
 <div class="row">
 <div class="col-md-10"></div>
 <div class="col-md-2">
@@ -20,12 +22,10 @@
   <form action='/sessions/<%= session[:id] %>' method='post'>
     <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
     <input type='hidden' name='_method' value='delete'>
-    <input type='submit' value='Log Out'>
+    <button type="submit" class="btn btn-warning">Log Out</button>
   </form>
 <% end %>
 </div>
-</div>
-<%= yield %>
 </body>
 </html>
 </div>

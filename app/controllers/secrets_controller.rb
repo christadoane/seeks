@@ -1,7 +1,6 @@
 class SecretsController < ApplicationController
   def index
   	@secrets = Secret.all
-  	@liked_secrets = Secret.find(2).users_liked
   end
 
   def new
